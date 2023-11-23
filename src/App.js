@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./App.css"
+import player1 from "./play-1.jpg"
+import player2 from "./play-2.jpg"
 function App() {
 
   const [player, setPlayer] = useState(1)
@@ -14,7 +16,7 @@ function App() {
     8: '',
     9: ''
   })
-  const [winState , setWinState] = useState(null);
+  const [winState, setWinState] = useState(null);
 
   const play = (boxNo) => {
 
@@ -32,7 +34,7 @@ function App() {
 
   const checkWin = () => {
     const symbol = player === 1 ? '✖️' : '⚪';
-    
+
 
     if ((box[1] === symbol && box[2] === symbol && box[3] === symbol) || (box[4] === symbol && box[5] === symbol && box[6] === symbol) ||
       (box[7] === symbol && box[8] === symbol && box[9] === symbol) || (box[1] === symbol && box[5] === symbol && box[9] === symbol) ||
@@ -46,7 +48,7 @@ function App() {
 
   useEffect(() => { checkWin(player) }, [box])
 
-  const reset =()=>{
+  const reset = () => {
     setPlayer(1)
     setBox(
       {
@@ -74,9 +76,14 @@ function App() {
         <p>Player 2  : ⚪ </p>
       </div>
 
-         {
-          winState ? (<h1 className='win'>Winner is {player === 1 ? "⚪" : "✖️"}</h1>): null
-         }
+      {
+        winState ? (<h1 className='win'>Winner is {player === 1 ? "⚪" : "✖️"}</h1>) : null
+      }
+
+      <div className='container'>
+      <div>
+        <img className='player-img' src={player1} />
+      </div>
 
       <div className='board'>
         <div className='row'>
@@ -97,6 +104,11 @@ function App() {
           <div className='box-8' onClick={() => { play(9) }}>{box[9]}</div>
 
         </div>
+      </div>
+
+      <div>
+        <img className='player-img' src={player2} />
+      </div>
       </div>
       <button type='button' onClick={reset} className='reset-btn'>Reset Game</button>
     </div>
