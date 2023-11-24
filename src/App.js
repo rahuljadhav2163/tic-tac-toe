@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import "./App.css"
 import player1 from "./play-1.jpg"
 import player2 from "./play-2.jpg"
+import Confetti from "react-confetti";
 function App() {
-
+  const [confettiVisible, setConfettiVisible] = useState(false);
   const [player, setPlayer] = useState(1)
   const [box, setBox] = useState({
     1: '',
@@ -42,6 +43,7 @@ function App() {
       (box[2] === symbol && box[5] === symbol && box[8] === symbol) || (box[3] === symbol && box[6] === symbol && box[9] === symbol)
     ) {
       setWinState(player)
+      setConfettiVisible(true)
     }
     setPlayer(player === 1 ? 2 : 1)
   }
@@ -64,6 +66,7 @@ function App() {
       }
     )
     setWinState(null)
+    setConfettiVisible(false);
   }
 
   return (
@@ -111,7 +114,22 @@ function App() {
       </div>
       </div>
       <button type='button' onClick={reset} className='reset-btn'>Reset Game</button>
+      <>
+      {winState !== null && confettiVisible && (
+      <Confetti
+        width={window.innerWidth}
+        height={window.innerHeight}
+        confettiSource={{
+          x: window.innerWidth / 7,
+          y: 2,
+          w: window.innerWidth,
+          h: 0,
+        }}
+        
+      />
+    )}</>
     </div>
+   
   )
 }
 
